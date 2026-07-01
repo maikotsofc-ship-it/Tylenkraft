@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.TylenKraft" parent="android:Theme.DeviceDefault.NoActionBar">
+        <item name="android:windowBackground">#121212</item>
+        
+        <item name="android:windowFullscreen">true</item> 
+        
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+
+        <item name="android:windowContentOverlay">@null</item>
+
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+    </style>
+</resources>
