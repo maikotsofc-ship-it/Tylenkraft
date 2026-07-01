@@ -1,0 +1,75 @@
+plugins {
+    alias(libs.plugins.android.application)
+}
+
+android {
+    namespace "tylenkraft.code"
+    compileSdk 35
+
+    defaultConfig {
+        applicationId "tylenkraft.code"
+        minSdk 26
+        targetSdk 35
+        versionCode 1
+        versionName "1.0"
+    }
+
+            // Altere para false quando quiser gerar a versão final (Release)
+    def isDebugMode = true
+
+    buildTypes {
+        debug {
+            // Se isDebugMode for false, este bloco é ignorado
+            initWith(buildTypes.debug) 
+            
+            minifyEnabled false
+            shrinkResources false
+            crunchPngs false
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-debug"
+        }
+        
+        release {
+            // Se isDebugMode for true, o Gradle foca no debug, mas as regras do release ficam prontas aqui
+            minifyEnabled true
+            shrinkResources true
+            applicationIdSuffix ".release"
+            versionNameSuffix "-release"
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+}
+
+configurations.all {
+    resolutionStrategy {
+        eachDependency { DependencyResolveDetails details ->
+            if (details.requested.group == 'org.jetbrains.kotlin') {
+                if (details.requested.name == 'kotlin-stdlib-jdk7' || details.requested.name == 'kotlin-stdlib-jdk8') {
+                    // Força a usar a stdlib unificada moderna se houver conflito
+                    details.useTarget "org.jetbrains.kotlin:kotlin-stdlib:1.8.22"
+                }
+            }
+        }
+    }
+}
+
+
+dependencies {
+    // Exemplo nas dependências que você adicionou para a tela de loading
+    implementation("androidx.appcompat:appcompat:1.6.1") {
+        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8'
+        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk7'
+    }
+    implementation("androidx.fragment:fragment:1.6.1") {
+        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8'
+        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk7'
+    }
+}
+
+
