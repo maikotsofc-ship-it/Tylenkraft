@@ -1,5 +1,3 @@
-# 🔥 TylenKraft Android 🔥
-
 # 🎮 TylenKraft
 
 > Um jogo de sobrevivência, exploração e construção desenvolvido em Java para Android.
